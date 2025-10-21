@@ -1,0 +1,458 @@
+{
+  "name": "agent-forge",
+  "displayName": "Agent Forge",
+  "description": "Full GitHub Copilot alternative: INLINE COMPLETIONS + MULTI-FILE CONTEXT + AI CODE ACTIONS - 100% local with Ollama!",
+  "version": "1.9.5",
+  "publisher": "flip",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/flip/agent-forge"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Machine Learning",
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "agent-forge.openChat",
+        "title": "Agent Forge: Open Chat",
+        "icon": "$(comment-discussion)"
+      },
+      {
+        "command": "agent-forge.editFile",
+        "title": "Agent Forge: Edit File",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "agent-forge.explainCode",
+        "title": "Agent Forge: Explain Code"
+      },
+      {
+        "command": "agent-forge.generateTests",
+        "title": "Agent Forge: Generate Tests"
+      },
+      {
+        "command": "agent-forge.inlineChat",
+        "title": "Agent Forge: Inline Chat",
+        "icon": "$(comment-discussion)"
+      },
+      {
+        "command": "agent-forge.quickFix",
+        "title": "Agent Forge: Quick Fix",
+        "icon": "$(wrench)"
+      },
+      {
+        "command": "agent-forge.quickExplain",
+        "title": "Agent Forge: Quick Explain",
+        "icon": "$(question)"
+      },
+      {
+        "command": "agent-forge.quickOptimize",
+        "title": "Agent Forge: Quick Optimize",
+        "icon": "$(rocket)"
+      },
+      {
+        "command": "agent-forge.quickDocument",
+        "title": "Agent Forge: Quick Document",
+        "icon": "$(book)"
+      },
+      {
+        "command": "agent-forge.refactorCode",
+        "title": "Agent Forge: Refactor Code"
+      },
+      {
+        "command": "agent-forge.fixBug",
+        "title": "Agent Forge: Fix Bug"
+      },
+      {
+        "command": "agent-forge.runTerminalCommand",
+        "title": "Agent Forge: Run Terminal Command"
+      },
+      {
+        "command": "agent-forge.agentMode",
+        "title": "Agent Forge: Agent Mode",
+        "icon": "$(robot)"
+      },
+      {
+        "command": "agent-forge.selectModel",
+        "title": "Agent Forge: Select Model"
+      },
+      {
+        "command": "agent-forge.showConfig",
+        "title": "Agent Forge: Configuration",
+        "icon": "$(settings-gear)"
+      },
+      {
+        "command": "agent-forge.reloadConfig",
+        "title": "Agent Forge: Reload Configuration",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "agent-forge.showModelInfo",
+        "title": "Agent Forge: Show Model Info",
+        "icon": "$(info)"
+      },
+      {
+        "command": "agent-forge.generateCommit",
+        "title": "Agent Forge: Generate Commit Message",
+        "icon": "$(git-commit)"
+      },
+      {
+        "command": "agent-forge.generatePR",
+        "title": "Agent Forge: Generate PR Description",
+        "icon": "$(git-pull-request)"
+      },
+      {
+        "command": "agent-forge.reviewCode",
+        "title": "Agent Forge: Review Code",
+        "icon": "$(checklist)"
+      },
+      {
+        "command": "agent-forge.reviewWorkspace",
+        "title": "Agent Forge: Review Workspace",
+        "icon": "$(file-directory)"
+      },
+      {
+        "command": "agent-forge.formatDocument",
+        "title": "Agent Forge: Format with AI",
+        "icon": "$(symbol-color)"
+      },
+      {
+        "command": "agent-forge.toggleCompletions",
+        "title": "Agent Forge: Toggle Inline Completions"
+      },
+      {
+        "command": "agent-forge.clearCache",
+        "title": "Agent Forge: Clear AI Cache"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "agent-forge",
+          "title": "Agent Forge",
+          "icon": "$(robot)"
+        }
+      ]
+    },
+    "views": {
+      "agent-forge": [
+        {
+          "type": "webview",
+          "id": "agent-forge.chatView",
+          "name": "Chat"
+        }
+      ]
+    },
+    "menus": {
+      "editor/context": [
+        {
+          "command": "agent-forge.inlineChat",
+          "group": "agent-forge@0",
+          "when": "editorTextFocus"
+        },
+        {
+          "command": "agent-forge.quickFix",
+          "group": "agent-forge@1",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "agent-forge.quickExplain",
+          "group": "agent-forge@2",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "agent-forge.quickOptimize",
+          "group": "agent-forge@3",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "agent-forge.quickDocument",
+          "group": "agent-forge@4",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "agent-forge.explainCode",
+          "group": "agent-forge@5",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "agent-forge.refactorCode",
+          "group": "agent-forge@6",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "agent-forge.generateTests",
+          "group": "agent-forge@7",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "agent-forge.fixBug",
+          "group": "agent-forge@8",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "agent-forge.agentMode",
+          "group": "agent-forge@9"
+        },
+        {
+          "command": "agent-forge.reviewCode",
+          "group": "agent-forge@10",
+          "when": "editorTextFocus"
+        },
+        {
+          "command": "agent-forge.formatDocument",
+          "group": "agent-forge@11",
+          "when": "editorTextFocus"
+        }
+      ],
+      "scm/title": [
+        {
+          "command": "agent-forge.generateCommit",
+          "group": "navigation",
+          "when": "scmProvider == git"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "agent-forge.agentMode",
+          "when": "view == agent-forge.chatView",
+          "group": "navigation@1"
+        },
+        {
+          "command": "agent-forge.showConfig",
+          "when": "view == agent-forge.chatView",
+          "group": "navigation@2"
+        },
+        {
+          "command": "agent-forge.reloadConfig",
+          "when": "view == agent-forge.chatView",
+          "group": "navigation@3"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Agent Forge",
+      "properties": {
+        "agent-forge.ollamaUrl": {
+          "type": "string",
+          "default": "http://localhost:11434",
+          "description": "Ollama API base URL"
+        },
+        "agent-forge.defaultModel": {
+          "type": "string",
+          "default": "qwen2.5-coder-14b-instruct-q4_k_m",
+          "description": "Default Ollama model",
+          "enum": [
+            "hf.co/unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q4_K_M",
+            "qwen2.5-coder-14b-instruct-q4_k_m",
+            "qwen2.5-coder:7b",
+            "mistral-nemo:latest"
+          ]
+        },
+        "agent-forge.temperature": {
+          "type": "number",
+          "default": 0.7,
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Model temperature (0 = deterministic, 1 = creative)"
+        },
+        "agent-forge.autoCommit": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically commit changes made by AI"
+        },
+        "agent-forge.enableTerminal": {
+          "type": "boolean",
+          "default": true,
+          "description": "Allow AI to execute terminal commands"
+        },
+        "agent-forge.enableFileOps": {
+          "type": "boolean",
+          "default": true,
+          "description": "Allow AI to read/write files"
+        },
+        "agent-forge.agentAutoApprove": {
+          "type": "boolean",
+          "default": true,
+          "description": "Agent mode: Automatically execute all tool calls without confirmation"
+        },
+        "agent-forge.agentMaxIterations": {
+          "type": "number",
+          "default": 15,
+          "minimum": 5,
+          "maximum": 50,
+          "description": "Agent mode: Maximum number of iterations before stopping"
+        },
+        "agent-forge.guidelinesFile": {
+          "type": "string",
+          "default": "",
+          "description": "Path to guidelines file (relative to workspace or absolute)"
+        },
+        "agent-forge.customInstructions": {
+          "type": "string",
+          "default": "",
+          "description": "Custom instructions for the AI"
+        },
+        "agent-forge.enabledTools": {
+          "type": "array",
+          "default": [
+            "readFile",
+            "writeFile",
+            "editFile",
+            "listFiles",
+            "searchFiles",
+            "getWorkspaceInfo",
+            "taskComplete"
+          ],
+          "items": {
+            "type": "string",
+            "enum": [
+              "readFile",
+              "writeFile",
+              "editFile",
+              "listFiles",
+              "searchFiles",
+              "runCommand",
+              "getWorkspaceInfo",
+              "taskComplete"
+            ]
+          },
+          "description": "Enabled agent tools"
+        },
+        "agent-forge.enableInlineCompletions": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable inline code completions (like GitHub Copilot)"
+        },
+        "agent-forge.inlineCompletions.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable ghost text inline code suggestions as you type"
+        },
+        "agent-forge.inlineCompletions.model": {
+          "type": "string",
+          "default": "",
+          "description": "Model for inline completions (empty = use default model). Recommended: qwen2.5-coder:7b for speed"
+        },
+        "agent-forge.inlineCompletions.maxPrefixLines": {
+          "type": "number",
+          "default": 50,
+          "minimum": 10,
+          "maximum": 200,
+          "description": "Maximum number of lines to include before cursor as context"
+        },
+        "agent-forge.inlineCompletions.maxSuffixLines": {
+          "type": "number",
+          "default": 20,
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Maximum number of lines to include after cursor as context"
+        },
+        "agent-forge.enableHoverInfo": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable AI-powered hover information"
+        },
+        "agent-forge.enableSignatureHelp": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable AI-powered signature help (function parameters)"
+        },
+        "agent-forge.enableCodeActions": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable AI-powered code actions (lightbulb suggestions)"
+        },
+        "agent-forge.enableFormatter": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable AI-powered code formatting (experimental)"
+        }
+      }
+    },
+    "keybindings": [
+      {
+        "command": "agent-forge.openChat",
+        "key": "ctrl+shift+l",
+        "mac": "cmd+shift+l"
+      },
+      {
+        "command": "agent-forge.inlineChat",
+        "key": "ctrl+i",
+        "mac": "cmd+i",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "agent-forge.quickFix",
+        "key": "ctrl+shift+f",
+        "mac": "cmd+shift+f",
+        "when": "editorHasSelection"
+      },
+      {
+        "command": "agent-forge.quickExplain",
+        "key": "ctrl+shift+e",
+        "mac": "cmd+shift+e",
+        "when": "editorHasSelection"
+      },
+      {
+        "command": "agent-forge.quickOptimize",
+        "key": "ctrl+shift+o",
+        "mac": "cmd+shift+o",
+        "when": "editorHasSelection"
+      },
+      {
+        "command": "agent-forge.quickDocument",
+        "key": "ctrl+shift+d",
+        "mac": "cmd+shift+d",
+        "when": "editorHasSelection"
+      },
+      {
+        "command": "agent-forge.agentMode",
+        "key": "ctrl+shift+a",
+        "mac": "cmd+shift+a"
+      },
+      {
+        "command": "agent-forge.showConfig",
+        "key": "ctrl+shift+,",
+        "mac": "cmd+shift+,"
+      },
+      {
+        "command": "agent-forge.reloadConfig",
+        "key": "ctrl+shift+r",
+        "mac": "cmd+shift+r"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./ && node -e \"const fs=require('fs'); const path=require('path'); const src=path.join(__dirname,'src','config'); const dest=path.join(__dirname,'out','config'); if(!fs.existsSync(dest))fs.mkdirSync(dest,{recursive:true}); fs.copyFileSync(path.join(src,'models.json'),path.join(dest,'models.json')); fs.copyFileSync(path.join(src,'default-instructions.md'),path.join(dest,'default-instructions.md'));\"",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "package": "vsce package --skip-license"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.22",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "@vscode/test-electron": "^2.3.0",
+    "@vscode/vsce": "^3.6.2",
+    "eslint": "^8.50.0",
+    "typescript": "^5.2.0"
+  },
+  "dependencies": {
+    "axios": "^1.6.0"
+  }
+}
